@@ -1,15 +1,18 @@
-print("🔥 BOT FILE STARTED")
+from telegram.ext import Updater, CommandHandler
+import os
 
-from telegram.ext import Updater
+TOKEN = os.getenv("BOT_TOKEN")
 
-def main():
-    print("🚀 MAIN START")
+def start(update, context):
+    update.message.reply_text("🔥 BorykNews Bot працює!")
 
-    updater = Updater(BOT_TOKEN)
-    dp = updater.dispatcher
+print("🚀 BOT STARTED")
 
-    updater.start_polling()
-    updater.idle()
+updater = Updater(TOKEN, use_context=True)
 
-if __name__ == "__main__":
-    main()
+dp = updater.dispatcher
+
+dp.add_handler(CommandHandler("start", start))
+
+updater.start_polling()
+updater.idle()
